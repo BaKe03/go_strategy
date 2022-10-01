@@ -1,0 +1,45 @@
+package main
+
+import "fmt"
+
+func main() {
+	// anime quotes
+	anime := NewAnime(Naruto{})
+	anime.PerformQuote()
+	anime.SetAnime(Demon_Slayer{})
+	anime.PerformQuote()
+}
+
+type QuoteReciter interface {
+	Recite()
+}
+
+type Naruto struct{}
+
+func (spm Naruto) Recite() {
+	fmt.Println("Hard work is worthless for those that don't believe in themselves - Naruto")
+}
+
+type Demon_Slayer struct{}
+
+func (sum Demon_Slayer) Recite() {
+	fmt.Println("If you can do one thing, hone it to perfection. Hone it to the utmost limit - Zenitsu")
+}
+
+type anime struct {
+	QuoteReciter QuoteReciter
+}
+
+func NewAnime(qr QuoteReciter) *anime {
+	return &anime{
+		QuoteReciter: qr,
+	}
+}
+
+func (t *anime) PerformQuote() {
+	t.QuoteReciter.Recite()
+}
+
+func (t *anime) SetAnime(qr QuoteReciter) {
+	t.QuoteReciter = qr
+}
